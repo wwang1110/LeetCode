@@ -42,14 +42,16 @@ public class StringtoInteger {
     		if (str.charAt(idx) >= '0' && str.charAt(idx) <= '9')
     		{
     			ret = ret * 10 + str.charAt(idx) - '0';
-    			if (ret > Integer.MAX_VALUE || ret < Integer.MIN_VALUE)
-    				return 0;
     		}
     		else
-    			return 0;
+    			break;
     	}
     	if (neg == true)
     		ret = -ret;
+		if (ret > Integer.MAX_VALUE)
+			return Integer.MAX_VALUE;
+		if (ret < Integer.MIN_VALUE)
+			return Integer.MIN_VALUE;
     	return (int)ret;
     }
 }

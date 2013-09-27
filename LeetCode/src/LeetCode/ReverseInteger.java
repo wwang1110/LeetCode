@@ -17,7 +17,9 @@ public class ReverseInteger {
 
 	//Throw an exception? Good, but what if throwing an exception is not an option? You would then have to re-design the function (ie, add an extra parameter).
     public int reverse(int x) {
-    	StringBuilder sb = new StringBuilder();
+        if (x == 0)
+            return 0;
+        StringBuilder sb = new StringBuilder();
     	if (x < 0) 
     	{
     		x = -x;
