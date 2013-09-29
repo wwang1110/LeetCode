@@ -17,29 +17,18 @@ public class PalindromeNumber {
     	if (x < 0)
     		return false;
 
-    	int len = 0;
+    	int div = 1;
+    	while (x / div > 10)
+    		div *= 10;
     	
-    	int y = x;
-    	while (y > 0)
+    	while (x > 0)
     	{
-    		len ++;
-    		y /= 10;
+    		int l = x / div;
+    		int r = x % 10;
+    		if (l != r) return false;
+    		x = (x % div) / 10;
+    		div /= 100;
     	}
-    	
-    	for (int i = 0; i < len/2; i++)
-    	{
-    		long div1 = 1;
-    		for (int j = 0; j < len - i; j++)
-    			div1 *= 10;
-    		long div2 = 1;
-    		for (int k = 0; k < i; k++)
-    			div2 *= 10;
-    		long left = (x % div1) / (div1/10);
-    		long right = (x % (div2 * 10)) / div2; 
-    		if (left != right)
-    			return false;
-    	}
-    	
     	return true;
     }
 }
