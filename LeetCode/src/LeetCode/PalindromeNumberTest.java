@@ -11,6 +11,7 @@ public class PalindromeNumberTest {
 		Assert.assertEquals(false, solution.isPalindrome(321));
 		Assert.assertEquals(true, solution.isPalindrome(12321));
 		Assert.assertEquals(false, solution.isPalindrome(-321));
+		Assert.assertEquals(true, solution.isPalindrome(1001));
 	}
 
 }
