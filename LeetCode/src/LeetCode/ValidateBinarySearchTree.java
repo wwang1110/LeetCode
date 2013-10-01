@@ -27,7 +27,7 @@ public class ValidateBinarySearchTree {
     public boolean isValidBST(TreeNode root) {
     	ArrayList<Integer> A = new ArrayList<Integer>();
     	serialize(root, A);
-    	for (int i = 0; i < A.size() - 2; i++)
+    	for (int i = 0; i < A.size() - 1; i++)
     		if (A.get(i) > A.get(i+1)) return false;
     	return true;
     }	
