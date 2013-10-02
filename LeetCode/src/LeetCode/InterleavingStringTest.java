@@ -10,6 +10,7 @@ public class InterleavingStringTest {
 		InterleavingString s = new InterleavingString();
 		Assert.assertEquals(true, s.isInterleave("aabcc", "dbbca", "aadbbcbcac"));
 		Assert.assertEquals(false, s.isInterleave("aabcc", "dbbca", "aadbbbaccc"));
-	}
+		Assert.assertEquals(false, s.isInterleave("a", "b", "a"));
+	}	
 
 }

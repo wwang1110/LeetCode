@@ -18,13 +18,10 @@ public class InterleavingString {
     	if (i == s1.length() && j == s2.length() && k == s3.length())
     		return true;
     	boolean ret = false;
-    	if (i < s1.length() && s1.charAt(i) == s3.charAt(k))
+    	if (i < s1.length() && k < s3.length() && s1.charAt(i) == s3.charAt(k))
     		ret = ret || isInterleave(s1, i + 1, s2, j, s3, k + 1);
-    	if (j < s2.length() && s2.charAt(j) == s3.charAt(k))
+    	if (j < s2.length() && k < s3.length() && s2.charAt(j) == s3.charAt(k))
     		ret = ret || isInterleave(s1, i, s2, j + 1, s3, k + 1);
-    	if (((i < s1.length() && s1.charAt(i) != s3.charAt(k))||i >= s1.length())
-    		&& ((j < s2.length() && s2.charAt(j) != s3.charAt(k))||j >= s2.length()))
-    		return false;
     	return ret;
     }
 }
