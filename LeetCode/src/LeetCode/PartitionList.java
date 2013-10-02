@@ -37,8 +37,14 @@ public class PartitionList {
     			}
     		}
     	}
-    	btail.next = after;
-    	atail.next = null;
+    	if (before != null)
+    		btail.next = after;
+    	else
+    		before = after;
+    	
+    	if (after != null)
+    		atail.next = null;
+    	
     	return before;
     }
 }
