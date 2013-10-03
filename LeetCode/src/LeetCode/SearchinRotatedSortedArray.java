@@ -9,6 +9,26 @@ public class SearchinRotatedSortedArray {
 
 	//You may assume no duplicate exists in the array.
     public int search(int[] A, int target) {
-    	return 0;
+    	
+    	int start = 0;
+    	int end = A.length - 1;
+    	
+    	while (start < end)
+    	{
+    		int mid = (start + end) / 2;
+    		if (A[mid] == target) 
+    			return mid;
+    		
+    		if (A[start] <= target && target < A[mid] 
+    			|| A[mid] <= A[end] && (target < A[mid] || target > A[end]))
+    			end = mid - 1;
+    		else 
+    			start = mid + 1;
+    	}
+    	
+    	if (A[start] == target)
+    		return start;
+    	
+    	return -1;
     }
 }
