@@ -22,7 +22,10 @@ public class GrayCode {
     public ArrayList<Integer> grayCode(int n) {
     	ArrayList<Integer> ret = new ArrayList<Integer>();
     	if (n == 0)
+    	{
+    		ret.add(0);
     		return ret;
+    	}
     	
     	int num[] = new int[n];
     	
