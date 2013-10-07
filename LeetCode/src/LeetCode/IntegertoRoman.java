@@ -19,9 +19,7 @@ public class IntegertoRoman {
     	{
         	t = num / div;
 
-        	if (t == 5)
-        		ret += roman.charAt(i-1);
-        	else if (t == 4)
+        	if (t == 4)
         	{
 	    		ret += roman.charAt(i);
         		ret += roman.charAt(i-1);
@@ -33,7 +31,7 @@ public class IntegertoRoman {
 	    	}
 	    	else
 	    	{
-	    		if (t > 5)
+	    		if (t >= 5)
 	    		{
 	        		ret += roman.charAt(i-1);
 	        		t %= 5;
