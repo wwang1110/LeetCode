@@ -48,6 +48,10 @@ public class FourSum {
         					ret.add(quadruplet);
     				}
     			}
+    			ArrayList<Integer> item = new ArrayList<Integer>();
+    			item.add(i);
+    			item.add(j);
+    			map.put(num[i]+num[j], item);
     		}
     	return ret;
     }
