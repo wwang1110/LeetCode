@@ -1,7 +1,5 @@
 package LeetCode;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class SudokuSolverTest {
