@@ -7,9 +7,9 @@ public class SudokuSolver {
 
 	//You may assume that there will be only one unique solution.
 	
-	boolean rows[][] = new boolean[9][9]; 
-	boolean cols[][] = new boolean[9][9]; 
-	boolean recs[][] = new boolean[9][9];
+	private boolean rows[][] = new boolean[9][9]; 
+	private boolean cols[][] = new boolean[9][9]; 
+	private boolean recs[][] = new boolean[9][9];
     public void solveSudoku(char[][] board) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
     	for (int i = 0; i < 9; i ++)
@@ -27,12 +27,20 @@ public class SudokuSolver {
     {
     	int i = 0;
     	int j = 0;
+    	boolean find = false;
         for (i = 0; i < 9; i++)
+        {
         	for (j = 0; j < 9; j++)
         		if (board[i][j] == '.')
+        		{
+        			find = true;
         			break;
+        		}
+        	if (find == true)
+        		break;
+        }
 
-        if (i == 9 && j == 9)
+        if (find == false)
         	return true;
         
         for (int k = 0;k < 9; k++)
