@@ -1,5 +1,7 @@
 package LeetCode;
 
+import java.util.ArrayList;
+
 public class UniqueBinarySearchTreesII {
 	//Given n, generate all structurally unique BST's (binary search trees) that store values 1...n.
 
@@ -25,23 +27,10 @@ public class UniqueBinarySearchTreesII {
 	//    \
 	//     5
 	//The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}".
-	/*
-	private void buildTree(StringBuilder sb, int start, int end)
-	{
-		if (start > end)
-			sb.append("#");
-		for (int i = start; i <= end; i++)
-		{
-			StringBuilder t = new StringBuilder(sb);
-			t.append(i);
-			buildTree(t, start, i - 1);
-			buildTree(t, i + 1, end);
-		}
-	}
-	
+	ArrayList<TreeNode> ret = null;
     public ArrayList<TreeNode> generateTrees(int n) {
-    	ArrayList<TreeNode> trees = new ArrayList<TreeNode>();
-    	return trees;
+    	ret = new ArrayList<TreeNode>();
+    	return ret;
     }
-    */	
+    
 }
