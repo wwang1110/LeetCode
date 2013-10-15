@@ -1,7 +1,6 @@
 package LeetCode;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class PlusOne {
 	//Given a number represented as an array of digits, plus one to the number.
