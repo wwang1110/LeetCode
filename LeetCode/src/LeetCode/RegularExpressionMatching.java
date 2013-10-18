@@ -24,25 +24,25 @@ public class RegularExpressionMatching {
     }
 
     private boolean isMatch(String s, int i, String p, int j) {
-    	if (j < p.length())
-    	{
-    		if ((j+1<p.length()&&p.charAt(j+1)!='*')||j+1==p.length())
-    		{
-    			if ((p.charAt(j)=='.')||p.charAt(j) == s.charAt(i))
-    				return isMatch(s, i+1, p, j+1);
-    		}
-    		else if (j+1<p.length()&&p.charAt(j+1)=='*')
-    		{
-    			while(i < s.length() && s.charAt(i)==p.charAt(j)||p.charAt(j)=='.')
-    			{
-    				if(isMatch(s, i, p, j+2))return true;
-    				i++;
-    			}
-    			return isMatch(s, i, p, j+2);
-    		}
-    	}
-    	else if (i==s.length())
+    	if (j == p.length() && i == s.length())
     		return true;
-   		return false;
+    	
+		if (j + 1 < p.length() && p.charAt(j + 1)=='*')
+		{
+			while (i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.'))
+			{
+				if(isMatch(s, i, p, j + 2))
+					return true;
+				i++;
+			}
+			return isMatch(s, i, p, j + 2);
+    	}
+		else
+		{
+			if (i < s.length() && j < p.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.'))
+				return isMatch(s, i + 1, p, j + 1);
+		}
+		
+		return false;
     }
 }

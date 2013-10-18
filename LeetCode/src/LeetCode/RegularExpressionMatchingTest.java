@@ -22,6 +22,9 @@ public class RegularExpressionMatchingTest {
 		Assert.assertEquals(false, solution.isMatch("aa", "a"));
 		Assert.assertEquals(false, solution.isMatch("aa", "a"));
 		Assert.assertEquals(false, solution.isMatch("aa", "a"));
+		Assert.assertEquals(true, solution.isMatch("aab", "c*a*b"));
+		Assert.assertEquals(true, solution.isMatch("bbbba", ".*a*a"));
+		
 	}
 
 }
