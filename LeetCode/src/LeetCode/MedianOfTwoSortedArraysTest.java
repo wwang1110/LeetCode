@@ -5,20 +5,7 @@ import org.junit.Test;
 
 public class MedianOfTwoSortedArraysTest {
 
-	@Test
-	public void findMedianSortedArrays_GivenTwoEmptyArrays() {
-		int A[] = new int[0];
-		int B[] = new int[0];
-		Assert.assertEquals("0.0", findMedianSortedArrays(A, B));
-	}
-	
-	@Test
-	public void findMedianSortedArrays_GivenOneEmptyArrays() {
-		int A[] = new int[0];
-		int B[] = new int[]{1};
-		Assert.assertEquals("1.0", findMedianSortedArrays(A, B));
-	}
-
+	/*
 	@Test
 	public void findMedianSortedArrays_GivenLenghOneArrays() {
 		int A[] = new int[]{1};
@@ -46,7 +33,7 @@ public class MedianOfTwoSortedArraysTest {
 		int B[] = new int[]{2, 3};
 		Assert.assertEquals("2.5", findMedianSortedArrays(A, B));
 	}
-	/*
+
 	@Test
 	public void findMedianSortedArrays_GivenOneOddArrayOneEvenArray() {
 		int A[] = new int[]{1, 3, 5, 7};
@@ -54,22 +41,19 @@ public class MedianOfTwoSortedArraysTest {
 		Assert.assertEquals("5.0", findMedianSortedArrays(A, B));
 	}
 	*/
-	
-	/*
 	@Test
-	public void findMedianSortedArrays_GivenTwoOddArrays() {
-		int A[] = new int[]{1, 3, 5};
-		int B[] = new int[]{2, 4, 6, 8, 10};
-		Assert.assertEquals("1.0", findMedianSortedArrays(A, B));
+	public void test1() {
+		int A[] = new int[]{1, 1, 3, 3};
+		int B[] = new int[]{1, 1, 3, 3};
+		Assert.assertEquals("2.0", findMedianSortedArrays(A, B));
 	}
-
+	
 	@Test
-	public void findMedianSortedArrays_GivenTwoEvenArrays() {
+	public void test2() {
 		int A[] = new int[]{1, 3, 5, 7};
 		int B[] = new int[]{0, 2, 4, 6, 8, 10};
 		Assert.assertEquals("1.0", findMedianSortedArrays(A, B));
 	}
-	*/
 	
 	private String findMedianSortedArrays(int[] A, int[] B) {
 		MedianOfTwoSortedArrays solution = new MedianOfTwoSortedArrays();
