@@ -1,8 +1,7 @@
 package LeetCode;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.Arrays;
 
 public class ThreeSum {
 	//Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
@@ -17,30 +16,36 @@ public class ThreeSum {
 	//(-1, -1, 2)
     public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
     	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
-    	HashSet<Integer> set = new HashSet<Integer>();
-        for (int i = 0; i < num.length; i++)
-        {
-        	for (int j = i + 1; j < num.length; j++)
-        	{
-        		if (set.contains(-num[i]-num[j]))
-        		{
-        			ArrayList<Integer> triplet = new ArrayList<Integer>();
-        			triplet.add(-num[i]-num[j]);
-        			triplet.add(num[i]);
-        			triplet.add(num[j]);
-        			Collections.sort(triplet);
-        			boolean dup = false;
-        			for (ArrayList<Integer> t : ret)
-        			{
-        				if (t.get(0) == triplet.get(0) && t.get(1) == triplet.get(1) && t.get(2) == triplet.get(2))
-        					dup = true;
-        			}
-        			if (dup == false)
-        				ret.add(triplet);
-        		}
-        	}
-        	set.add(num[i]);
-        }
+    	Arrays.sort(num);
+    	for (int i = 0; i < num.length; i++)
+    	{
+    		if (i > 0 && num[i] == num[i-1])
+    			continue;
+    		
+    		int j = i + 1; 
+    		int k = num.length - 1;
+    		while (j < k)
+    		{
+    			int delta = num[i] + num[j] + num[k]; 
+    			if ( delta == 0)
+    			{
+    				ArrayList<Integer> tri = new ArrayList<Integer>();
+    				tri.add(num[i]);
+    				tri.add(num[j]);
+    				tri.add(num[k]);
+    				ret.add(tri);
+    				j++;
+    				k--;
+    				while(j<k && num[k]==num[k+1]) k--; 
+                    while(j<k && num[j]==num[j-1]) j++;
+    			}
+    			else if (delta < 0)
+    				j++;
+    			else
+    				k--;
+    		}
+    		
+    	}
         return ret;
     }
 }
