@@ -9,6 +9,8 @@ public class ThreeSumClosestTest {
 	public void test() {
 		ThreeSumClosest s = new ThreeSumClosest();
 		Assert.assertEquals(2, s.threeSumClosest(new int[]{-1,2,1,-4}, 1));
+		Assert.assertEquals(2, s.threeSumClosest(new int[]{1,1,-1,-1,3}, -1));
+		
 	}
 
 }
