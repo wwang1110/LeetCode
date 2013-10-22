@@ -21,20 +21,28 @@ public class ReverseNodesinkGroup {
     	if (head == null)
     		return null;
     	
+    	int len = 0;
+    	ListNode node = head;
+    	while (node != null)
+    	{
+    		node = node.next;
+    		len++;
+    	}
     	oldnode = null;
     	newnode = null;
-    	reverseKGroup(head,k, k);
+    	reverseKGroup(head, k, k, len);
     	return newnode;
     }
     
-    private ListNode reverseKGroup(ListNode node, int k, int t) {
-    	if (node.next == null)
+    private ListNode reverseKGroup(ListNode node, int k, int t, int len) {
+    	
+    	if (len < k && t == k)
     	{
     		newnode = node;
     		return node;
     	}
     	
-    	ListNode n = reverseKGroup(node.next, k, t == 1 ? k : t-1);
+    	ListNode n = reverseKGroup(node.next, k, t == 1 ? k : t-1, len - 1);
     	
     	if (t == 1)
     	{
