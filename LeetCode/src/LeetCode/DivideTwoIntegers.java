@@ -7,22 +7,33 @@ public class DivideTwoIntegers {
     	if (dividend < 0 && divisor > 0 || dividend > 0 && divisor < 0)
     		sign = -1;
     	
-    	if (dividend < 0)
-    		dividend = -dividend;
+    	long ldividend = Math.abs((long)dividend);
+    	long ldivisor = Math.abs((long)divisor);
 
-    	if (divisor < 0)
-    		divisor = -divisor;
+    	long ret = 0;
     	
-    	int ret = 0;
-    	
-    	while (dividend >= divisor)
+    	long num = ldivisor;
+    	long cnt = 1;
+    	while (ldividend >= num)
     	{
-    		dividend -= divisor;
-    		ret++;
+    		num = num << 1;
+    		cnt = cnt << 1;
     	}
+    	
+    	while(cnt > 0)
+    	{
+    		if (ldividend >= num)
+    		{
+    			ret += cnt;
+    			ldividend -= num;
+    		}
+    		num = num >> 1;
+    		cnt = cnt >> 1;
+    	}
+    	
     	if (sign == -1)
     		ret = -ret;
     	
-    	return ret;
+    	return (int)ret;
     }
 }
