@@ -17,10 +17,8 @@ public class SubstringwithConcatenationofAllWordsTest {
 	@Test
 	public void test2() {
 		SubstringwithConcatenationofAllWords s = new SubstringwithConcatenationofAllWords();
-		ArrayList<Integer> ret = s.findSubstring("barfoobarfoo", new String[] {"foo", "bar"});
+		ArrayList<Integer> ret = s.findSubstring("a", new String[] {"a"});
 		Assert.assertEquals(0, (int)ret.get(0));
-		Assert.assertEquals(3, (int)ret.get(1));
-		Assert.assertEquals(6, (int)ret.get(2));
 	}
 
 	@Test

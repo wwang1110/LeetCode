@@ -1,7 +1,10 @@
 package LeetCode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SubstringwithConcatenationofAllWords {
 	//You are given a string, S, and a list of words, L, that are all of the same length. 
@@ -18,31 +21,45 @@ public class SubstringwithConcatenationofAllWords {
     	ArrayList<Integer> ret = new ArrayList<Integer>();
     	int len = S.length();
     	int wlen = L[0].length();
-    	int slen = wlen * L.length;
-    	if (wlen < len)
+    	int llen = wlen * L.length;
+    	Arrays.sort(L);
+    	Map<String, Integer> map = new HashMap<String, Integer>();
+    	for (String w : L)
+    		if (map.containsKey(w))
+    			map.put(w, map.get(w) + 1);
+    		else
+    			map.put(w, 1);
+    	
+    	for (int i = 0; i <= len - llen; i++)
     	{
-    		for (int i = 0; i <= len - slen; i++)
-    		{
-    			ArrayList<String> dict = new ArrayList<String>();
-    			Collections.addAll(dict, L);
-    			
-    			for (int j = i; j <= i + slen; j += wlen)
-    			{
-    				boolean found = false;
-    				for (int k = 0; k < dict.size(); k++)
-    					if (S.substring(j, j + wlen).equalsIgnoreCase(dict.get(k)))
-    					{
-    						found = true;
-    						dict.remove(k);
-    						break;
-    					}
-    				if (found == false)
-    					break;
-    			}
-    			if (dict.isEmpty())
-    				ret.add(i);
-    		}
+        	Map<String, Integer> map2 = new HashMap<String, Integer>();
+        	int start = i;
+        	while (start < len && start - i < llen)
+        	{
+        		String str = S.substring(start, start + wlen);
+        		boolean isValid = false;
+        		if (map.containsKey(str))
+        		{
+        			if (!map2.containsKey(str))
+        			{
+        	    		map2.put(str, 1);
+        	    		isValid = true;
+        			}
+        			else if (map2.containsKey(str) && map.get(str) > map2.get(str))
+        			{
+            			map2.put(str, map2.get(str) + 1);
+            			isValid = true;
+        			}
+        		}
+        		if (isValid)
+        			start += wlen;
+        		else
+        			break;
+        	}
+    		if (start - i == llen)
+    			ret.add(i);
     	}
+    	
         return ret;
     }
 }
