@@ -39,6 +39,15 @@ public class TextJustification {
     	{
     		if (i < words.length && len + words[i].length() + (i - start) <= L)
     			len += words[i].length();
+    		else if (i == words.length)
+    		{
+    			String line = words[start];
+    			for (int k = start + 1; k < i; k++)
+    					line += " " + words[k];
+    			while (line.length() < L)
+    				line += " ";
+    			ret.add(line);
+    		}
     		else
     		{
     			String line = words[start];
