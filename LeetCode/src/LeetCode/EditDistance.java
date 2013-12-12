@@ -10,20 +10,21 @@ public class EditDistance {
 	//b) Delete a character
 	//c) Replace a character
     public int minDistance(String word1, String word2) {
-    	int dis = 0;
-    	if (word1.length() < word2.length())
-    		dis += insertDis(word1, word2);
-    	if (word1.length() > word2.length())
-    		dis += deleteDis(word1, word2);
-    	
-    	return dis;
+    	int len1 = word1.length();
+    	int len2 = word2.length();
+    	int step[][] = new int[len1+1][len2+1];
+    	for (int i = 0; i <= len1; i++)
+    		step[i][0] = i;
+    	for (int i = 0; i <= len2; i++)
+    		step[0][i] = i;
+    	for (int i1 = 1; i1 <= len1; i1++)
+    		for (int i2 = 1; i2 <= len2; i2++)
+    		{
+    			if (word1.charAt(i1 - 1) == word2.charAt(i2 - 1))
+    				step[i1][i2] = step[i1-1][i2-1];
+    			else
+    				step[i1][i2] = Math.min(Math.min(step[i1-1][i2], step[i1][i2-1]), step[i1-1][i2-1]) + 1;
+    		}
+    	return step[len1][len2];
     }
-
-	private int deleteDis(String word1, String word2) {
-		return 0;
-	}
-
-	private int insertDis(String word1, String word2) {
-		return 0;
-	}
 }
