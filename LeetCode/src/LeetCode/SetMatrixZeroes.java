@@ -11,5 +11,25 @@ public class SetMatrixZeroes {
 	//A simple improvement uses O(m + n) space, but still not the best solution.
 	//Could you devise a constant space solution?
     public void setZeroes(int[][] matrix) {
+    	boolean rows[] = new boolean[matrix.length];
+    	for (int i = 0; i < rows.length; i++)
+    		rows[i] = true;
+    	
+    	boolean cols[] = new boolean[matrix[0].length];
+    	for (int i = 0; i < cols.length; i++)
+    		cols[i] = true;
+    	
+    	for (int i = 0; i < rows.length; i++)
+    		for (int j = 0; j < cols.length; j++)
+    		{
+    			boolean val = matrix[i][j] == 0 ? false: true;
+    			rows[i] = rows[i] & val;
+    			cols[j] = cols[j] & val;
+    		}
+    	
+    	for (int i = 0; i < rows.length; i++)
+    		for (int j = 0; j < cols.length; j++)
+    			if (!(rows[i] && cols[j])) 
+    				matrix[i][j] = 0;
     }	
 }
