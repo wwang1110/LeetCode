@@ -12,16 +12,33 @@ public class InterleavingString {
 	//When s3 = "aadbbbaccc", return false.
 	
     public boolean isInterleave(String s1, String s2, String s3) {
-    	return isInterleave(s1,0,s2,0,s3,0);
-    }
-    private boolean isInterleave(String s1, int i, String s2, int j, String s3, int k) {
-    	if (i == s1.length() && j == s2.length() && k == s3.length())
-    		return true;
-    	boolean ret = false;
-    	if (i < s1.length() && k < s3.length() && s1.charAt(i) == s3.charAt(k))
-    		ret = ret || isInterleave(s1, i + 1, s2, j, s3, k + 1);
-    	if (j < s2.length() && k < s3.length() && s2.charAt(j) == s3.charAt(k))
-    		ret = ret || isInterleave(s1, i, s2, j + 1, s3, k + 1);
-    	return ret;
+    	if (s1.length() + s2.length() != s3.length())
+    		return false;
+    	boolean table[][] = new boolean[s1.length() + 1][s2.length() + 1];
+    	
+    	for (int i = 0; i <= s1.length(); i++)
+    		for (int j = 0; j <= s2.length(); j++)
+    		{
+    			if (i == 0 && j == 0) table[i][j] = true;
+    			else if (i == 0 )
+    			{
+    				if (s2.charAt(j - 1) == s3.charAt(i + j - 1) && table[i][j - 1] == true) 
+    					table[i][j] = true;
+    			}
+    			else if (j == 0)
+    			{
+    				if (s1.charAt(i - 1) == s3.charAt(i + j - 1) && table[i - 1][j] == true) 
+    					table[i][j] = true;
+    			}
+    			else
+    			{
+    				if (s2.charAt(j - 1) == s3.charAt(i + j - 1) && table[i][j - 1] == true)
+    					table[i][j] = true;
+    				if (s1.charAt(i - 1) == s3.charAt(i + j - 1) && table[i - 1][j] == true) 
+    					table[i][j] = true;
+    			}
+    				
+    		}
+    	return table[s1.length()][s2.length()];
     }
 }
