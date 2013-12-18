@@ -21,49 +21,30 @@ public class GrayCode {
 	//For now, the judge is able to judge based on one instance of gray code sequence. Sorry about that.
     public ArrayList<Integer> grayCode(int n) {
     	ArrayList<Integer> ret = new ArrayList<Integer>();
-    	if (n == 0)
+    	ArrayList<String> arr = new ArrayList<String>();
+    	arr.add("0");
+    	arr.add("0");
+    	arr.add("1");
+    	for (int i = 2; i <= n; i++)
     	{
-    		ret.add(0);
-    		return ret;
+    		int idx_begin = (int)(Math.pow(2, i - 1) - 1);
+    		int idx_end = (int)(Math.pow(2, i) - 1);
+    		for (int j = idx_begin; j < idx_end; j++)
+    			arr.add("0" + arr.get(j));
+    		for (int j = idx_end - 1; j >= idx_begin; j--)
+    			arr.add("1" + arr.get(j));
     	}
-    	
-    	int num[] = new int[n];
-    	
-    	int x = 0;
-    	do
-    	{
-    		ret.add(x);
-    		x = nextNum(num);
-    	}
-    	while (x != 0);
-    	
+		int ibegin = (int)(Math.pow(2, n) - 1);
+		int iend = (int)(Math.pow(2, n + 1) - 1);
+		for (int i = ibegin; i < iend; i++)
+		{
+			String str = arr.get(i);
+			int num = 0;
+			int idx = 0;
+			while (idx < str.length())
+				num = num * 2 + (str.charAt(idx++) - '0');
+			ret.add(num);
+		}
     	return ret;
     }
-    
-	private int nextNum(int num[])
-	{
-		if (num[0] == 0)
-		{
-			int i = num.length - 1;
-			while (num[i] == 1)
-				i--;
-			num[i] = 1;
-		}
-		else
-		{
-			int i = num.length - 1;
-			while (num[i] == 0)
-				i--;
-			num[i] = 0;
-		}
-		return toInt(num);
-	}
-	
-	private int toInt(int num[])
-	{
-		int number = 0;
-		for (int i = 0; i < num.length; i++)
-			number = number * 2 + num[i];
-		return number;
-	}
 }

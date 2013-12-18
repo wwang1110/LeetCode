@@ -10,7 +10,7 @@ public class GrayCodeTest {
 	@Test
 	public void test1() {
 		GrayCode s = new GrayCode();
-		ArrayList<Integer> ret = s.grayCode(2);
+		ArrayList<Integer> ret = s.grayCode(3);
 		Assert.assertEquals(4, ret.size());
 	}
 
