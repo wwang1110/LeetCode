@@ -12,18 +12,23 @@ public class BinaryTreeMaximumPathSum {
 	//      / \
 	//     2   3
 	//Return 6.
-    public int maxPathSum(TreeNode node) {
-    	if (node == null)
-    		return 0;
-        int sum = Math.max(maxPathSum(node.left), maxPathSum(node.right));
-        return Math.max(sum, maxBranch(node.left) + maxBranch(node.right) + node.val);
-    }	
+	private int ret;
+    public int maxPathSum(TreeNode root) {
+    	ret = Integer.MIN_VALUE;
+    	getMaxPath(root);
+    	return ret;
+    }
     
-    private int maxBranch(TreeNode node)
+    private int getMaxPath(TreeNode node)
     {
     	if (node == null)
     		return 0;
-    	int sum = node.val + Math.max(maxBranch(node.left),maxBranch(node.right));
-    	return sum < 0 ? 0 : sum;
+    	
+        int left = getMaxPath(node.left);
+        int right = getMaxPath(node.right);
+        int sum = Math.max(node.val, Math.max(left, right) + node.val);
+        ret = Math.max(ret, sum);
+        ret = Math.max(ret, left + right + node.val);
+    	return sum > 0 ? sum : 0;
     }
 }
