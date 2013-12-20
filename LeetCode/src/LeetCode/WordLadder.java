@@ -1,5 +1,6 @@
 package LeetCode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -24,38 +25,47 @@ public class WordLadder {
 	//	Return 0 if there is no such transformation sequence.
 	//	All words have the same length.
 	//	All words contain only lowercase alphabetic characters.
-	private boolean isTransformable(String start, String end)
-	{
-		int len = start.length();
-		int cnt = 0;
-		for (int i = 0; i < len; i++)
-			if (start.charAt(i)!=end.charAt(i))cnt++;
-		return cnt == 1;
-	}
     public int ladderLength(String start, String end, HashSet<String> dict) {
+    	
     	dict.add(end);
-    	HashMap<String, Integer> marked = new HashMap<String, Integer>(); 
-    	for (String s : dict)
-    		marked.put(s, Integer.MAX_VALUE);
-    	marked.put(start, 1);
+    	
     	Queue<String> que = new LinkedList<String>(); 
     	que.offer(start);
-    	
+    	que.offer(null);
+    	int steps = 1;
     	while (que.size() > 0)
     	{
     		String str = que.poll();
-    		for (String s : dict)
+    		
+    		if (str == null)
     		{
-    			if (!s.equals(str) && marked.get(s) == Integer.MAX_VALUE && isTransformable(str, s))
-    			{
-    				int steps = Math.min(marked.get(str) + 1, marked.get(s));
-    				if (s.equals(end))
-    					return steps;
-    				marked.put(s, steps);
-    				que.offer(s);
-    			}
+    			steps++;
+    			if (!que.isEmpty())
+    				que.offer(null);
+    		}
+    		else
+    		{
+    			if (str.equals(end))
+    				return steps;
+
+        		for (int i = 0; i < str.length(); i++)
+        			for (char c = 'a'; c <= 'z'; c++ )
+        			{
+        				if ( c == str.charAt(i))
+        					continue;
+
+            			char[] arr = str.toCharArray();
+        				arr[i] = c;
+        				String newstr = String.valueOf(arr);
+        				if (dict.contains(newstr))
+        				{
+        					que.offer(newstr);
+        					dict.remove(newstr);
+        				}
+        			}
     		}
     	}
+    	
     	return 0;
     }
 }
