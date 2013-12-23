@@ -1,8 +1,8 @@
 package LeetCode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -28,41 +28,44 @@ public class WordLadderII {
     public ArrayList<ArrayList<String>> findLadders(String start, String end, HashSet<String> dict) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
     	ArrayList<ArrayList<String>> ret = new ArrayList<ArrayList<String>>();
-    	
-    	String dicts[] = new String[dict.size()];
-        int i = 0;
-        Iterator<String> iter = dict.iterator();
-        while (iter.hasNext())
-        	dicts[i++] = iter.next();
-        int marks[] = new int[dict.size()];
+    	HashMap<String, Integer> dicts = new HashMap<String, Integer>();
+    	for (String w : dict)
+    		dicts.put(w, 0);
         
         Queue<ArrayList<String>> que = new LinkedList<ArrayList<String>>();
 
         ArrayList<String> begin = new ArrayList<String>();
         begin.add(start);
         que.offer(begin);
-        int len = 0;
+        que.offer(null);
+        
+        boolean find = false;
         while (que.isEmpty() == false)
         {
         	ArrayList<String> path = que.poll();
-        	if (len == 0 || path.size() < len)
+        	if (path == null)
+        	{
+        		if (find == true)
+        			break;
+
+        		if (!que.isEmpty())
+    				que.offer(null);
+        	}
+        	else
         	{
 	        	String last = path.get(path.size() - 1);
-	        	if (isTransformable(last, end) && (len == 0 || len == path.size() + 1))
-	        	{
-	        		path.add(end);
-	        		ret.add(path);
-	        		len = path.size();
-	        	}
 	        	
-	        	for (int k = 0; k < dicts.length; k++)
-	        		if (marks[k] == 0 && isTransformable(last, dicts[k]))
+	        	//reset
+	        	for (String w : dicts.keySet())
+	        		dicts.put(w, 0);
+	        	for (String w : path)
+	        		dicts.put(w, 1);
+	        	for (String w : dicts.keySet())
+	        		if (dicts.get(w) == 0 && isTransformable(last, w))
 	        		{
 	        			@SuppressWarnings("unchecked")
-						ArrayList<String> newpath = (ArrayList<String>)path.clone();
-	        			newpath.add(dicts[k]);
-	        			que.offer(newpath);
-	        			marks[k] = 1;
+						ArrayList<String> list = (ArrayList<String>) path.clone();
+	        			list.add(w);
 	        		}
         	}
         }
