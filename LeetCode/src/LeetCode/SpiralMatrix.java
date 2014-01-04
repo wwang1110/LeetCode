@@ -2,18 +2,6 @@ package LeetCode;
 
 import java.util.ArrayList;
 
-class Point {
-	public Point(int i, int j) {
-		x = i;
-		y = j;
-	}
-	public Point() {
-		// TODO Auto-generated constructor stub
-	}
-	public int x;
-	public int y;
-}
-
 public class SpiralMatrix {
 	//Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
 
