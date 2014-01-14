@@ -11,6 +11,29 @@ public class WordBreak {
 
 	//Return true because "leetcode" can be segmented as "leet code".
     public boolean wordBreak(String s, Set<String> dict) {
+    	if (s.isEmpty())
+    		return false;
+    	
+    	int len = s.length();
+    	boolean[] marks = new boolean[len + 1];
+    	marks[0] = true;
+    	
+    	for (int i = 0; i < len; i++)
+    	{
+    		if (marks[i] == false)
+    			continue;
+    		
+    		for (String str : dict)
+    		{
+    			if (str.length() + i <= len && str.equals(s.substring(i, str.length() + i)))
+    			{
+    				marks[str.length() + i] = true;
+	    			if (str.length() + i == len)
+	    				return true;
+    			}
+    		}
+    	}
+    	
     	return false;
     }	
 }
