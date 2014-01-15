@@ -1,5 +1,8 @@
 package LeetCode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LongestConsecutiveSequence {
 	//Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
 
@@ -9,6 +12,41 @@ public class LongestConsecutiveSequence {
 
 	//Your algorithm should run in O(n) complexity.
     public int longestConsecutive(int[] num) {
-    	return 0;
+    	
+    	Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
+    	
+    	for (int n : num)
+    		map.put(n, false);
+    	
+    	int maxLen = 0;
+    	for (int n : num)
+    	{
+    		if (map.get(n) == true)
+    			continue;
+    		
+    		//current node
+    		int idx = n;
+			map.put(idx, true);
+    		int count = 1;
+    		
+    		//scan left
+    		while (map.containsKey(--idx))
+    		{
+    			map.put(idx, true);
+    			count++;
+    		}
+    		
+    		//scan right
+    		idx = n;
+    		while (map.containsKey(++idx))
+    		{
+    			map.put(idx, true);
+    			count++;
+    		}
+    		
+    		maxLen = Math.max(maxLen, count);
+    	}
+    	
+    	return maxLen;
     }	
 }
