@@ -21,7 +21,7 @@ public class Pow {
     	if (n == 0)
     		return 1;
     	
-   		double val = pow(x, n/2);
+   		double val = calcPow(x, n/2);
    		val = val * val;
    		if (n % 2 == 1)
    			val *= x;
