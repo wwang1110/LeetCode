@@ -19,10 +19,44 @@ public class RegularExpressionMatching {
 	//isMatch("aa", ".*")  true
 	//isMatch("ab", ".*")  true
 	//isMatch("aab", "c*a*b")  true
+	
+	//dp
     public boolean isMatch(String s, String p) {
-    	return isMatch(s,0,p,0);
+    	
+    	int lens = s.length();
+    	int lenp = p.length();
+    	
+    	boolean match[][] = new boolean[lenp + 1][lens + 1];
+    	match[0][0] = true;
+    	
+    	for (int i = 1; i <= lenp; i++)
+    		for (int j = 0; j <= lens; j++)
+    		{
+    			if (j == 0)
+    			{
+    				if (i > 1 && p.charAt(i-1)=='*')
+						match[i][j] = match[i][j] || match[i-2][j];
+    			}
+    			else
+    			{
+    				if (p.charAt(i-1)=='.' || p.charAt(i-1) == s.charAt(j -1))
+    					match[i][j] = match[i-1][j-1];
+    				else if (i > 1 && p.charAt(i-1)=='*')
+    				{
+						match[i][j] = match[i][j] || match[i-2][j];
+    					match[i][j] = match[i][j] || match[i-1][j];
+    					if (match[i][j-1] == true && s.charAt(j-1) == p.charAt(i-2) || p.charAt(i-2) == '.')
+        					match[i][j] = match[i][j] || match[i][j-1];
+    				}
+    			}
+    		}
+    	
+    	return match[lenp][lens];
     }
 
+    //recursive 
+	//return isMatch(s,0,p,0);
+    /*
     private boolean isMatch(String s, int i, String p, int j) {
     	if (j == p.length() && i == s.length())
     		return true;
@@ -45,4 +79,5 @@ public class RegularExpressionMatching {
 		
 		return false;
     }
+    */
 }
