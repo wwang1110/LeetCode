@@ -15,71 +15,41 @@ public class SpiralMatrix {
 	//]
 	//You should return [1,2,3,6,9,8,7,4,5].
 
-	private int[][] marks = null;
 	private ArrayList<Integer> ret = null;
     public ArrayList<Integer> spiralOrder(int[][] matrix) {
     	ret = new ArrayList<Integer>();
-    	if (matrix.length == 0 || matrix[0].length == 0)
-    		return ret;
-    	
-    	int x = matrix.length;
-    	int y = matrix[0].length;
-    	marks = new int[x][y];
-    	spiralWalk(matrix, 0, 0, 0);
+
+    	int m = matrix.length;
+    	int n = matrix[0].length;
+    	spiralWalk(matrix, 0, 0, m, n);
     	return ret;
         
-    }	
-    private Point nextStep(int i, int j, int direction)
-    {
-    	Point p = new Point();
-    	switch(direction)
-    	{
-    		//left
-	    	case 0:
-	    	{
-	    		p.x = j + 1;
-	    		p.y = i;
-	    		break;
-	    	}
-	    	//down
-	    	case 1:
-	    	{
-	    		p.x = j;
-	    		p.y = i + 1;
-	    		break;
-	    	}
-	    	//right
-	    	case 2:
-	    	{
-	    		p.x = j - 1;
-	    		p.y = i;
-	    		break;
-	    	}
-	    	case 3:
-	    	{
-	    		p.x = j;
-	    		p.y = i - 1;
-	    		break;
-	    	}
-	    	default:
-    	}
-    	return p;
     }
-    private void spiralWalk(int[][] matrix, int i, int j, int direction)
+    
+    private void spiralWalk(int[][] matrix, int row, int col, int m, int n)
     {
-    	//0 = left, 1 = down, 2 = right, 3 = up
-    	ret.add(matrix[i][j]);
-    	marks[i][j] = 1;
-
-    	Point p = nextStep(i, j, direction);
-    	if ( 0 <= p.x && p.x < matrix[0].length && 0 <= p.y && p.y < matrix.length && marks[p.y][p.x] == 0)
-    		spiralWalk(matrix, p.y, p.x, direction);
+    	if (m <= 0 || n <= 0)
+    		return;
+    	
+    	if (m == 1 && n == 1)
+    		ret.add(matrix[row][col]);
+    	else if (m == 1)
+    		for (int i = 1;i < m;i++)
+    			ret.add(matrix[row][col++]);
+    	else if (n == 1)
+    		for (int i = 1;i < n;i++)
+    			ret.add(matrix[row++][col]);
     	else
     	{
-    		direction = (direction + 1) % 4;
-    		p = nextStep(i, j, direction);
-    		if ( 0 <= p.x && p.x < matrix[0].length && 0 <= p.y && p.y < matrix.length && marks[p.y][p.x] == 0)
-    			spiralWalk(matrix, p.y, p.x, direction);
+    		for (int i = 1;i < m;i++)
+    			ret.add(matrix[row][col++]);
+    		for (int i = 1;i < n;i++)
+    			ret.add(matrix[row++][col]);
+    		for (int i = 1;i < m;i++)
+    			ret.add(matrix[row][col--]);
+    		for (int i = 1;i < n;i++)
+    			ret.add(matrix[row--][col]);
+    		spiralWalk(matrix, row + 1, col + 1, m - 2, n - 2);
     	}
     }
 }
