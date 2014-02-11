@@ -7,11 +7,7 @@ import java.util.Comparator;
 class IntervalComparator implements Comparator<Interval> {
 	public final int compare(Interval first, Interval second)
 	{
-		if (first.start > second.start)
-			return 1;
-		if (first.start < second.start)
-			return -1;
-		return 0;
+		return first.start - second.start;
 	}
 
 }
@@ -27,29 +23,22 @@ public class MergeIntervals {
 			return true;
 		return false;
 	}
+	
     public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
     	Collections.sort(intervals, new IntervalComparator());
     	ArrayList<Interval> ret = new ArrayList<Interval>();
     	int len = intervals.size();
-    	int merged[] = new int[len];
     	for (int i = 0; i < len; i++)
     	{
-    		if (merged[i] == 0)
+    		Interval interval = intervals.get(i);
+    		while (i + 1 < len && isOverLapped(interval, intervals.get(i + 1)))
     		{
-        		Interval interval = intervals.get(i);
-        		merged[i] = 1;
-        		for (int j = i + 1; j < len; j++)
-        		{
-        			if (merged[j] == 0 && isOverLapped(interval, intervals.get(j)))
-        			{
-        				//merge
-        				interval.start = Math.min(interval.start, intervals.get(j).start);
-        				interval.end = Math.max(interval.end, intervals.get(j).end);
-        				merged[j] = 1;
-        			}
-        		}
-    			ret.add(interval);
+				//merge
+				interval.start = Math.min(interval.start, intervals.get(i + 1).start);
+				interval.end = Math.max(interval.end, intervals.get(i + 1).end);
+				i++;
     		}
+			ret.add(interval);
     	}
     	return ret;
     }	
