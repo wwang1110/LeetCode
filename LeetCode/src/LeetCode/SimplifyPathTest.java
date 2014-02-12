@@ -9,6 +9,7 @@ public class SimplifyPathTest {
 	public void test() {
 		SimplifyPath s = new SimplifyPath();
 		Assert.assertEquals("/c", s.simplifyPath("/a/./b/../../c/"));
+		Assert.assertEquals("/c", s.simplifyPath("/.."));
 	}
 
 }

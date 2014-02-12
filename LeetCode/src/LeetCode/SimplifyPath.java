@@ -1,6 +1,6 @@
 package LeetCode;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 public class SimplifyPath {
 	//Given an absolute path for a file (Unix-style), simplify it.
@@ -17,39 +17,30 @@ public class SimplifyPath {
 	//In this case, you should ignore redundant slashes and return "/home/foo".
     public String simplifyPath(String path) {
         // Note: The Solution object is instantiated only once and is reused by each test case.
-    	path = path.replace("//", "/");
-    	if (path.charAt(path.length() - 1) == '/')
-    		path = path.substring(0, path.length() - 1);
+    	Stack<String> stack = new Stack<String>();
+    	String elements[] = path.split("/");
+    	for (int i = 0; i < elements.length; i++)
+    	{
+    		if (!elements[i].isEmpty() && !elements[i].equals("."))
+    		{
+    			if (elements[i].equals(".."))
+    			{
+    				if(!stack.isEmpty())
+    					stack.pop();
+    			}
+    			else
+    				stack.push(elements[i]);
+    		}
+    	}
     	
-    	String paths[] = path.split("/");
-    	
-    	ArrayList<String> cur = new ArrayList<String>(); 
-    	
-    	for (int i = 0; i < paths.length; i++)
-    		if (paths[i].equals(""))
-    		{
-    			//do nth
-    		}
-    		else if (paths[i].equals(".."))
-    		{
-    			if (cur.isEmpty() == false)
-    				cur.remove(cur.size() - 1);
-    		}
-    		else if (paths[i].equals("."))
-    		{
-    		}
-    		else
-    		{
-    			cur.add(paths[i]);
-    		}
+    	if (stack.isEmpty())
+    		return "/";
     	
     	String ret = "";
-    	for (int i = 0; i < cur.size(); i++)
-    		ret += "/" + cur.get(i);
-    	
-    	if (ret.equals(""))
-    		ret = "/";
-    	
+    	while(!stack.isEmpty())
+    	{
+    		ret = "/" + stack.pop() + ret;
+    	}
     	return ret;
     }	
 }
