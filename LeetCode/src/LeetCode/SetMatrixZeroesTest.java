@@ -9,6 +9,7 @@ public class SetMatrixZeroesTest {
 		SetMatrixZeroes s = new SetMatrixZeroes();
 		s.setZeroes(new int[][]{{1}});
 		s.setZeroes(new int[][]{{0, 1}});
+		s.setZeroes(new int[][]{{0, 0, 0},{0, 1, 1},{0, 1, 1}});
 	}
 
 }

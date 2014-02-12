@@ -11,25 +11,48 @@ public class SetMatrixZeroes {
 	//A simple improvement uses O(m + n) space, but still not the best solution.
 	//Could you devise a constant space solution?
     public void setZeroes(int[][] matrix) {
-    	boolean rows[] = new boolean[matrix.length];
-    	for (int i = 0; i < rows.length; i++)
-    		rows[i] = true;
-    	
-    	boolean cols[] = new boolean[matrix[0].length];
-    	for (int i = 0; i < cols.length; i++)
-    		cols[i] = true;
-    	
-    	for (int i = 0; i < rows.length; i++)
-    		for (int j = 0; j < cols.length; j++)
-    		{
-    			boolean val = matrix[i][j] == 0 ? false: true;
-    			rows[i] = rows[i] & val;
-    			cols[j] = cols[j] & val;
-    		}
-    	
-    	for (int i = 0; i < rows.length; i++)
-    		for (int j = 0; j < cols.length; j++)
-    			if (!(rows[i] && cols[j])) 
-    				matrix[i][j] = 0;
-    }	
+    	   
+        boolean firstRow=false, firstColumn=false;
+        for(int i=0;i<matrix.length;i++){
+            if(matrix[i][0]==0){
+                firstColumn = true;
+                break;
+            }
+        }
+        
+        for(int i=0;i<matrix[0].length;i++){
+            if(matrix[0][i]==0){
+                firstRow = true;
+                break;
+            }
+        }
+    
+        for(int i=1;i<matrix.length;i++){
+            for(int j=1;j<matrix[0].length;j++){
+                if(matrix[i][j]==0){
+                    matrix[i][0]=0;
+                    matrix[0][j]=0;
+                }
+            }
+        }
+        
+        for(int i=1;i<matrix.length;i++){
+            for(int j=1;j<matrix[0].length;j++){
+                if(matrix[i][0]==0||matrix[0][j]==0){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+        
+        if(firstRow){
+            for(int i=0;i<matrix[0].length;i++)
+                matrix[0][i]=0;
+        }
+        
+        if(firstColumn){
+            for(int i=0;i<matrix.length;i++)
+                matrix[i][0]=0;
+        }
+        
+    }
 }

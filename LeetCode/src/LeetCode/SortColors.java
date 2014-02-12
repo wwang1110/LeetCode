@@ -17,36 +17,23 @@ public class SortColors {
 	//Could you come up with an one-pass algorithm using only constant space?
     public void sortColors(int[] A) {
     	int i = 0;
-    	int j = A.length - 1;
-    	while (i < j)
+    	int j = 0; 
+    	int k = 0;
+    	for (int p = 0; p < A.length; p++)
     	{
-    		while (A[j] == 2 && i < j)
-    			j--;
-    		while (A[i] != 2 && i < j)
-    			i++;
-    		
-    		if (A[i] == 2 && A[j] != 2)
+    		if (A[p] == 0)
     		{
-	    		int tmp = A[i];
-	    		A[i] = A[j];
-	    		A[j] = tmp;
+    			A[k++] = 2;
+    			A[j++] = 1;
+    			A[i++] = 0;
     		}
-    	}
-    	
-    	i = 0;
-    	while (i < j)
-    	{
-    		while (A[i] == 0 && i < j)
-    			i++;
-    		while (A[j] == 1 && i < j)
-    			j--;
-    		
-    		if (A[i] == 1 && A[j] == 0)
+    		else if (A[p] == 1)
     		{
-	    		int tmp = A[i];
-	    		A[i] = A[j];
-	    		A[j] = tmp;
+    			A[k++] = 2;
+    			A[j++] = 1;
     		}
+    		else
+    			A[k++] = 2;
     	}
     }	
 }
