@@ -27,26 +27,14 @@ public class LinkedListCycleII {
     	
     	if (find == false)
     		return null;
-    	
-    	int nodesInLoop = 0;
-    	do
-    	{
-    		fast = fast.next;
-    		nodesInLoop++;
-    	}
-    	while(fast != slow);
-    	
-    	slow = head;
+
     	fast = head;
-    	for (int i = 0; i < nodesInLoop; i++)
-    		fast = fast.next;
-    	
-    	while (slow != fast)
+    	while (fast != slow)
     	{
     		fast = fast.next;
     		slow = slow.next;
     	}
     	
-    	return slow;
-    }	
+    	return fast;
+    }
 }
