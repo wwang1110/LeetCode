@@ -10,41 +10,45 @@ public class PartitionList {
 	//Given 1->4->3->2->5->2 and x = 3,
 	//return 1->2->2->4->3->5.
     public ListNode partition(ListNode head, int x) {
-    	ListNode before = null;
-    	ListNode after = null;
-    	ListNode btail = null;
-    	ListNode atail = null;
-    	for (ListNode n = head; n != null; n = n.next)
+    	ListNode firstPart = null;
+    	ListNode firsttail = null;
+    	ListNode lastPart = null;
+    	ListNode lasttail = null;
+    	
+    	ListNode node = head;
+    	while (node != null)
     	{
-    		if (n.val < x)
+    		if (node.val < x)
     		{
-    			if (before == null)
-    				before = btail = n;
+    			if (firstPart == null)
+    			{
+    				firstPart = node;
+    				firsttail = node;
+    			}
     			else
     			{
-    				btail.next = n;
-    				btail = btail.next;
+    				firsttail.next = node;
+    				firsttail = firsttail.next;
     			}
     		}
     		else
     		{
-    			if (after == null)
-    				after = atail = n;
+    			if (lastPart == null)
+    			{
+    				lastPart = node;
+    				lasttail = node;
+    			}
     			else
     			{
-    				atail.next = n;
-    				atail = atail.next;
+    				lasttail.next = node;
+    				lasttail = lasttail.next;
     			}
     		}
+    		node = node.next;
     	}
-    	if (before != null)
-    		btail.next = after;
-    	else
-    		before = after;
+    	firsttail.next = lastPart;
+    	lasttail.next = null;
     	
-    	if (after != null)
-    		atail.next = null;
-    	
-    	return before;
+    	return firstPart;
     }
 }
