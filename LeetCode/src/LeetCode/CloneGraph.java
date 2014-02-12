@@ -25,26 +25,23 @@ public class CloneGraph {
 	//    0 --- 2
 	//         / \
 	//         \_/
-	HashMap<Integer, UndirectedGraphNode> marked;
+	HashMap<UndirectedGraphNode, UndirectedGraphNode> clonedNodes;
 	public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
 		if (node == null)
 			return null;
-		marked = new HashMap<Integer, UndirectedGraphNode>();
-		return cloneSubGraph(node);
+		clonedNodes = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+		return clone(node);
     }
-	private UndirectedGraphNode cloneSubGraph(UndirectedGraphNode node)
+	private UndirectedGraphNode clone(UndirectedGraphNode node)
 	{
-		UndirectedGraphNode r = new UndirectedGraphNode(node.label);
-		marked.put(r.label, r);
-		
-		for (UndirectedGraphNode n : node.neighbors)
+		if (!clonedNodes.containsKey(node))
 		{
-			if (!marked.containsKey(n.label))
-				r.neighbors.add(cloneSubGraph(n));
-			else
-				r.neighbors.add(marked.get(n.label));
+			UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+			clonedNodes.put(node, newNode);
+			for (UndirectedGraphNode neighbor : node.neighbors)
+				newNode.neighbors.add(clone(neighbor));
+			return newNode;
 		}
-		
-		return r;
+		return clonedNodes.get(node);
 	}
 }
