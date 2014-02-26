@@ -23,29 +23,22 @@ public class BinaryTreePreorderTraversal {
         	return ret;
         
         TreeNode node = root;
-        ret.add(node.val);
-        s.push(node);
+        s.push(new TreeNode(-1));
         while (!s.isEmpty())
         {
-        	if (node.left != null)
+        	if (node != null)
         	{
-        		node = node.left;
         		ret.add(node.val);
         		s.push(node);
+        		node = node.left;
         	}
         	else
         	{
             	node = s.pop();
-            	if (node.right != null)
-            	{
-            		node = node.right;
-            		ret.add(node.val);
-            		s.push(node);
-            	}
+        		node = node.right;
         	}
         }
         
         return ret;
     }
-
 }
