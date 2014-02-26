@@ -24,20 +24,18 @@ public class ValidateBinarySearchTree {
 	//    \
 	//     5
 	//The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}".
-    public boolean isValidBST(TreeNode root) {
-    	ArrayList<Integer> A = new ArrayList<Integer>();
-    	serialize(root, A);
-    	for (int i = 0; i < A.size() - 1; i++)
-    		if (A.get(i) > A.get(i+1)) return false;
-    	return true;
-    }	
-    private void serialize(TreeNode node, ArrayList<Integer> A)
-    {
-    	if (node != null)
-    	{
-    		serialize(node.left, A);
-    		A.add(node.val);
-    		serialize(node.right, A);
-    	}
+    public boolean isValidBST(TreeNode node) {
+    	return isValid(node, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
+    
+    private boolean isValid(TreeNode node, int minValue, int maxValue) {
+    	
+    	if (node == null)
+    		return true;
+    	
+    	if (node.val <= minValue || node.val >= maxValue)
+    		return false;
+    	
+		return isValid(node.left, minValue, node.val) && isValid(node.right, node.val, maxValue);
+	}
 }
